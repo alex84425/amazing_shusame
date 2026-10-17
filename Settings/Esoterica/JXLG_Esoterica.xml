@@ -1,0 +1,58 @@
+<Esotericas><List>
+	<Esoterica Name="JXLG_Esoterica_Sword">
+		<DisplayName>流光劍雨</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_yujian</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>七柄流光之劍在頭頂排成扇形，依序破空射向敵人，最後一劍斬出金色十字劍痕。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>None</Element>
+		<EffectDesc>[size=10][color=#D06508]習得神通：流光劍雨[/color][/size]</EffectDesc>
+		<Magics>
+			<li>JXLG_Magic_Sword</li>
+		</Magics>
+	</Esoterica>
+	<Esoterica Name="JXLG_Esoterica_Lotus">
+		<DisplayName>寒月冰蓮</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_huti</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>在弟子腳下綻放雙層寒月冰蓮，霜氣升騰，花瓣四散之時令其心境清明。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>None</Element>
+		<EffectDesc>[size=10][color=#D06508]習得神通：寒月冰蓮[/color][/size]</EffectDesc>
+		<Magics>
+			<li>JXLG_Magic_Lotus</li>
+		</Magics>
+	</Esoterica>
+	<Esoterica Name="JXLG_Esoterica_Thunder">
+		<DisplayName>紫霄雷印</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>於敵人頭頂結出紫霄雷印，雷氣內聚，三道天雷接連劈落。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>None</Element>
+		<EffectDesc>[size=10][color=#D06508]習得神通：紫霄雷印[/color][/size]</EffectDesc>
+		<Magics>
+			<li>JXLG_Magic_Thunder</li>
+		</Magics>
+	</Esoterica>
+	<Esoterica Name="JXLG_Esoterica_Phoenix">
+		<DisplayName>朱雀焚天</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>以真火凝出一隻朱雀，振翅撲向敵人，撞擊時炸開火環，濃煙與餘火久久不散。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>None</Element>
+		<EffectDesc>[size=10][color=#D06508]習得神通：朱雀焚天[/color][/size]</EffectDesc>
+		<Magics>
+			<li>JXLG_Magic_Phoenix</li>
+		</Magics>
+	</Esoterica>
+</List></Esotericas>

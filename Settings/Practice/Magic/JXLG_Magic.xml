@@ -1,0 +1,58 @@
+<Magics><List>
+	<Magic Name="JXLG_Magic_Sword" Type="Class">
+		<DisplayName>流光劍雨</DisplayName>
+		<Desc>七柄流光之劍在頭頂排成扇形，依序破空射向敵人，最後一劍斬出金色十字劍痕。</Desc>
+		<Icon>res/Sprs/ui/icon_yujian</Icon>
+		<SelectMode>Single</SelectMode>
+		<TargetAni>dazuo</TargetAni>
+		<Param1>2</Param1>
+		<SelectTarget>Npc</SelectTarget>
+		<CostLing>300</CostLing>
+		<ClassName>JXLG_Magic_Sword</ClassName>
+		<MaxArea>64</MaxArea>
+		<ShowInPAttacker>1</ShowInPAttacker>
+		<TargetDesc>請選擇一個敵人</TargetDesc>
+	</Magic>
+	<Magic Name="JXLG_Magic_Lotus" Type="Class">
+		<DisplayName>寒月冰蓮</DisplayName>
+		<Desc>在弟子腳下綻放雙層寒月冰蓮，霜氣升騰，花瓣四散之時令其心境清明。</Desc>
+		<Icon>res/Sprs/ui/icon_huti</Icon>
+		<SelectMode>Single</SelectMode>
+		<TargetAni>dazuo</TargetAni>
+		<Param1>3</Param1>
+		<SelectTarget>Npc</SelectTarget>
+		<CostLing>200</CostLing>
+		<ClassName>JXLG_Magic_Lotus</ClassName>
+		<MaxArea>64</MaxArea>
+		<ShowInPAttacker>1</ShowInPAttacker>
+		<TargetDesc>請選擇一名門內弟子</TargetDesc>
+	</Magic>
+	<Magic Name="JXLG_Magic_Thunder" Type="Class">
+		<DisplayName>紫霄雷印</DisplayName>
+		<Desc>於敵人頭頂結出紫霄雷印，雷氣內聚，三道天雷接連劈落。</Desc>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<SelectMode>Single</SelectMode>
+		<TargetAni>dazuo</TargetAni>
+		<Param1>3</Param1>
+		<SelectTarget>Npc</SelectTarget>
+		<CostLing>400</CostLing>
+		<ClassName>JXLG_Magic_Thunder</ClassName>
+		<MaxArea>64</MaxArea>
+		<ShowInPAttacker>1</ShowInPAttacker>
+		<TargetDesc>請選擇一個敵人</TargetDesc>
+	</Magic>
+	<Magic Name="JXLG_Magic_Phoenix" Type="Class">
+		<DisplayName>朱雀焚天</DisplayName>
+		<Desc>以真火凝出一隻朱雀，振翅撲向敵人，撞擊時炸開火環，濃煙與餘火久久不散。</Desc>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<SelectMode>Single</SelectMode>
+		<TargetAni>dazuo</TargetAni>
+		<Param1>3</Param1>
+		<SelectTarget>Npc</SelectTarget>
+		<CostLing>500</CostLing>
+		<ClassName>JXLG_Magic_Phoenix</ClassName>
+		<MaxArea>64</MaxArea>
+		<ShowInPAttacker>1</ShowInPAttacker>
+		<TargetDesc>請選擇一個敵人</TargetDesc>
+	</Magic>
+</List></Magics>

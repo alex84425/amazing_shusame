@@ -1,0 +1,58 @@
+<SkillTree><List>
+	<Node Name="Gong_JXLG_a0" Gong="Gong_JXLG">
+		<Esoterica>JXLG_Esoterica_Sword</Esoterica>
+		<DisplayName>流光劍雨</DisplayName>
+		<Level>Qi</Level>
+		<Index>0</Index>
+		<Line>0,0,0,0,0,0,0,0</Line>
+		<PreUnit></PreUnit>
+		<MutexUnit></MutexUnit>
+		<FiveBase>0,0,0,0,0</FiveBase>
+		<Skills></Skills>
+		<LingMax>0</LingMax>
+		<GoldLevel>0</GoldLevel>
+		<GodCount>0</GodCount>
+	</Node>
+	<Node Name="Gong_JXLG_a1" Gong="Gong_JXLG">
+		<Esoterica>JXLG_Esoterica_Lotus</Esoterica>
+		<DisplayName>寒月冰蓮</DisplayName>
+		<Level>Qi</Level>
+		<Index>1</Index>
+		<Line>0,0,0,0,0,0,0,0</Line>
+		<PreUnit></PreUnit>
+		<MutexUnit></MutexUnit>
+		<FiveBase>0,0,0,0,0</FiveBase>
+		<Skills></Skills>
+		<LingMax>0</LingMax>
+		<GoldLevel>0</GoldLevel>
+		<GodCount>0</GodCount>
+	</Node>
+	<Node Name="Gong_JXLG_a2" Gong="Gong_JXLG">
+		<Esoterica>JXLG_Esoterica_Thunder</Esoterica>
+		<DisplayName>紫霄雷印</DisplayName>
+		<Level>Qi</Level>
+		<Index>2</Index>
+		<Line>0,0,0,0,0,0,0,0</Line>
+		<PreUnit></PreUnit>
+		<MutexUnit></MutexUnit>
+		<FiveBase>0,0,0,0,0</FiveBase>
+		<Skills></Skills>
+		<LingMax>0</LingMax>
+		<GoldLevel>0</GoldLevel>
+		<GodCount>0</GodCount>
+	</Node>
+	<Node Name="Gong_JXLG_a3" Gong="Gong_JXLG">
+		<Esoterica>JXLG_Esoterica_Phoenix</Esoterica>
+		<DisplayName>朱雀焚天</DisplayName>
+		<Level>Qi</Level>
+		<Index>3</Index>
+		<Line>0,0,0,0,0,0,0,0</Line>
+		<PreUnit></PreUnit>
+		<MutexUnit></MutexUnit>
+		<FiveBase>0,0,0,0,0</FiveBase>
+		<Skills></Skills>
+		<LingMax>0</LingMax>
+		<GoldLevel>0</GoldLevel>
+		<GodCount>0</GodCount>
+	</Node>
+</List></SkillTree>

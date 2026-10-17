@@ -1,0 +1,13 @@
+<ModifierDefs><List>
+	<Modifier Name="Modifier_JXLG_Lotus" Type="Normal">
+		<DisplayName>寒月冰心</DisplayName>
+		<Desc>冰蓮清輝入體，心如止水。</Desc>
+		<MaxStack>1</MaxStack>
+		<Duration>600</Duration>
+		<Display>1</Display>
+		<Properties>
+			<li Name="MindStateBaseValue" AddV="40"/>
+			<li Name="BaseEmotionAddV" AddV="20"/>
+		</Properties>
+	</Modifier>
+</List></ModifierDefs>

@@ -1,0 +1,35 @@
+<DamageDefs><List>
+	<Damage Name="Damage_JXLG_Sword">
+		<DisplayName>流光劍傷</DisplayName>
+		<Lable>Jin</Lable>
+		<TreatConstant>0</TreatConstant>
+		<ValueMin>0.2</ValueMin>
+		<ValueMax>0.5</ValueMax>
+		<Pain>0.2</Pain>
+		<Trend>0.2</Trend>
+		<Previous></Previous>
+		<Next></Next>
+	</Damage>
+	<Damage Name="Damage_JXLG_Thunder">
+		<DisplayName>紫霄雷殛</DisplayName>
+		<Lable>Jin</Lable>
+		<TreatConstant>0</TreatConstant>
+		<ValueMin>0.3</ValueMin>
+		<ValueMax>0.7</ValueMax>
+		<Pain>0.2</Pain>
+		<Trend>0.2</Trend>
+		<Previous></Previous>
+		<Next></Next>
+	</Damage>
+	<Damage Name="Damage_JXLG_Fire">
+		<DisplayName>朱雀真火</DisplayName>
+		<Lable>Huo</Lable>
+		<TreatConstant>0</TreatConstant>
+		<ValueMin>0.3</ValueMin>
+		<ValueMax>0.8</ValueMax>
+		<Pain>0.3</Pain>
+		<Trend>0.2</Trend>
+		<Previous></Previous>
+		<Next></Next>
+	</Damage>
+</List></DamageDefs>

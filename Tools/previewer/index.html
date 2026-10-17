@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>九霄特效預覽器</title>
+<style>
+  :root { --bg:#14120f; --panel:#1f1b16; --ink:#efe6d6; --muted:#a8998a; --accent:#e0a050; --line:#3a3229; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:"Microsoft JhengHei","PingFang TC",system-ui,sans-serif; }
+  header { padding:12px 16px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; border-bottom:1px solid var(--line); background:var(--panel); }
+  header h1 { font-size:18px; margin:0 12px 0 0; color:var(--accent); }
+  button { background:#2c261f; color:var(--ink); border:1px solid var(--line); border-radius:6px; padding:7px 12px; font-size:15px; cursor:pointer; font-family:inherit; }
+  button:hover { border-color:var(--accent); }
+  button.on { background:var(--accent); color:#1a1209; border-color:var(--accent); }
+  label { font-size:14px; color:var(--muted); display:flex; align-items:center; gap:6px; }
+  input[type=range] { width:110px; }
+  #wrap { display:flex; justify-content:center; padding:12px; }
+  canvas { max-width:100%; height:auto; border:1px solid var(--line); border-radius:4px; background:#000; }
+  #status { font-size:13px; color:var(--muted); padding:0 16px 12px; text-align:center; min-height:1.4em; }
+  #err { color:#ff8a7a; white-space:pre-wrap; padding:0 16px; font-family:Consolas,monospace; font-size:13px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>九霄特效預覽器</h1>
+  <button data-fx="phoenix">朱雀焚天</button>
+  <button data-fx="sword">流光劍雨</button>
+  <button data-fx="lotus">寒月冰蓮</button>
+  <button data-fx="thunder">紫霄雷印</button>
+  <button id="loop">自動重播</button>
+  <button id="reload">重新讀取程式</button>
+  <label>速度 <input id="speed" type="range" min="0.1" max="1" step="0.05" value="1"><span id="speedv">1.0×</span></label>
+  <label>縮放 <input id="zoom" type="range" min="25" max="100" step="1" value="49"></label>
+  <label><input id="showbg" type="checkbox" checked> 遊戲背景</label>
+</header>
+<div id="wrap"><canvas id="cv" width="1200" height="800"></canvas></div>
+<div id="status">載入中…</div>
+<div id="err"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/fengari-web@0.1.4/dist/fengari-web.js"></script>
+<script>
+"use strict";
+// ---------------------------------------------------------------------------
+// 路徑：本頁放在 Mod/Tools/previewer/，由 Mod 根目錄的本機伺服器提供
+// ---------------------------------------------------------------------------
+const ROOT = "../../";
+const SCRIPTS = ["JXLG_VFX.lua", "JXLG_PS.lua", "JXLG_Effects.lua", "JXLG_Phoenix.lua"];
+const TEX = ["glow","core","ring","spark","blade","trail","beam","slash","petal","snow","rune_outer","rune_inner","fire","smoke"];
+const params = new URLSearchParams(location.search);
+
+const cv = document.getElementById("cv");
+const statusEl = document.getElementById("status");
+const errEl = document.getElementById("err");
+function showErr(e) { errEl.textContent = String(e && e.stack || e); console.error(e); }
+
+// ---------------------------------------------------------------------------
+// WebGL：一個簡單的 sprite 批次繪製器，混合方式照 Unity Particles/Additive 與 Alpha Blended
+// ---------------------------------------------------------------------------
+const gl = cv.getContext("webgl", { premultipliedAlpha: false, alpha: false, preserveDrawingBuffer: true });
+const vs = `attribute vec2 aPos; attribute vec2 aUV; attribute vec4 aCol;
+uniform vec2 uScale; varying vec2 vUV; varying vec4 vCol;
+void main(){ gl_Position = vec4(aPos * uScale, 0.0, 1.0); vUV = aUV; vCol = aCol; }`;
+const fs = `precision mediump float; varying vec2 vUV; varying vec4 vCol; uniform sampler2D uTex;
+void main(){ gl_FragColor = texture2D(uTex, vUV) * vCol; }`;
+function sh(type, src) { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(s); return s; }
+const prog = gl.createProgram();
+gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs));
+gl.linkProgram(prog); gl.useProgram(prog);
+const aPos = gl.getAttribLocation(prog, "aPos"), aUV = gl.getAttribLocation(prog, "aUV"), aCol = gl.getAttribLocation(prog, "aCol");
+const uScale = gl.getUniformLocation(prog, "uScale");
+const vbuf = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, vbuf);
+const STRIDE = 8 * 4;
+gl.enableVertexAttribArray(aPos); gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, STRIDE, 0);
+gl.enableVertexAttribArray(aUV);  gl.vertexAttribPointer(aUV, 2, gl.FLOAT, false, STRIDE, 8);
+gl.enableVertexAttribArray(aCol); gl.vertexAttribPointer(aCol, 4, gl.FLOAT, false, STRIDE, 16);
+gl.enable(gl.BLEND);
+
+const textures = {};   // name -> {tex, w, h}
+function loadImage(url) {
+  return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => rej("載入失敗 " + url); im.src = url; });
+}
+function glTex(im) {
+  const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
+  gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, im);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  return t;
+}
+
+// 每幀收集的繪製項目：{order, add, tex, verts[]}
+let draws = [];
+function quad(order, add, texName, cx, cy, w, h, rotDeg, u0, v0, u1, v1, r, g, b, a) {
+  const c = Math.cos(rotDeg * Math.PI / 180), s = Math.sin(rotDeg * Math.PI / 180);
+  const hw = w / 2, hh = h / 2;
+  const P = (lx, ly) => [cx + lx * c - ly * s, cy + lx * s + ly * c];
+  const p1 = P(-hw, hh), p2 = P(hw, hh), p3 = P(hw, -hh), p4 = P(-hw, -hh);
+  // 圖片最上面一列在 v=0，對應世界座標的上方
+  const v = [p1[0],p1[1],u0,v0,r,g,b,a, p2[0],p2[1],u1,v0,r,g,b,a, p3[0],p3[1],u1,v1,r,g,b,a,
+             p1[0],p1[1],u0,v0,r,g,b,a, p3[0],p3[1],u1,v1,r,g,b,a, p4[0],p4[1],u0,v1,r,g,b,a];
+  draws.push({ order, add, tex: texName, v });
+}
+function flush() {
+  // 依 sortingOrder 排序（穩定排序），同材質同混合的連續項目合併成一批
+  draws.forEach((d, i) => d.i = i);
+  draws.sort((a, b) => a.order - b.order || a.i - b.i);
+  let i = 0;
+  while (i < draws.length) {
+    const d0 = draws[i]; let j = i; const arr = [];
+    while (j < draws.length && draws[j].tex === d0.tex && draws[j].add === d0.add) { arr.push(...draws[j].v); j++; }
+    gl.bindTexture(gl.TEXTURE_2D, textures[d0.tex].tex);
+    if (d0.add) gl.blendFunc(gl.SRC_ALPHA, gl.ONE); else gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(arr), gl.STREAM_DRAW);
+    gl.drawArrays(gl.TRIANGLES, 0, arr.length / 8);
+    i = j;
+  }
+  draws = [];
+}
+
+// ---------------------------------------------------------------------------
+// ParticleSystem 模擬：讀 Lua 端的 VFX.PS_DEFS，照 Unity 各模組的意義近似
+// ---------------------------------------------------------------------------
+let PSDEFS = {};
+const particles = {};  // name -> []
+function evalGrad(stops, t) {
+  if (!stops) return [1,1,1,1];
+  if (t <= stops[0][0]) return stops[0].slice(1);
+  for (let k = 1; k < stops.length; k++) {
+    if (t <= stops[k][0]) {
+      const a = stops[k-1], b = stops[k], f = (t - a[0]) / (b[0] - a[0] || 1);
+      return [1,2,3,4].map(q => a[q] + (b[q] - a[q]) * f);
+    }
+  }
+  return stops[stops.length-1].slice(1);
+}
+function evalCurve(pts, t) {
+  if (!pts) return 1;
+  if (t <= pts[0][0]) return pts[0][1];
+  for (let k = 1; k < pts.length; k++) {
+    if (t <= pts[k][0]) {
+      const a = pts[k-1], b = pts[k]; let f = (t - a[0]) / (b[0] - a[0] || 1);
+      f = f * f * (3 - 2 * f);   // AnimationCurve 自動切線的平滑近似
+      return a[1] + (b[1] - a[1]) * f;
+    }
+  }
+  return pts[pts.length-1][1];
+}
+// 平滑偽亂流（多個正弦疊加），代替 Unity noise 模組
+function noise2(x, y, t) {
+  const nx = Math.sin(x * 1.7 + t * 1.3) + Math.sin(y * 2.3 - t * 0.7 + 1.7) * 0.6 + Math.sin((x + y) * 3.1 + t * 2.1) * 0.3;
+  const ny = Math.cos(y * 1.9 - t * 1.1) + Math.cos(x * 2.1 + t * 0.9 + 0.4) * 0.6 + Math.cos((x - y) * 2.9 - t * 1.7) * 0.3;
+  return [nx / 1.9, ny / 1.9];
+}
+let simTime = 0;
+function jxEmit(name, x, y, vx, vy, size, life, r, g, b, a, rot, n) {
+  const d = PSDEFS[name]; if (!d) return;
+  const list = particles[name] || (particles[name] = []);
+  const max = d.max || 1500;
+  for (let k = 0; k < n; k++) {
+    if (list.length >= max) return;
+    const spin = d.spin ? (d.spin[0] + Math.random() * (d.spin[1] - d.spin[0])) : 0;
+    list.push({ x, y, vx, vy, size, life, age: 0, r, g, b, a, rot, spin, seed: Math.random() * 100, trail: [] });
+  }
+}
+function stepParticles(dt) {
+  for (const name in particles) {
+    const d = PSDEFS[name], list = particles[name];
+    let w = 0;
+    for (let k = 0; k < list.length; k++) {
+      const p = list[k];
+      p.age += dt;
+      if (p.age >= p.life) continue;
+      if (d.drag) { const f = Math.pow(1 - d.drag, dt * 60); p.vx *= f; p.vy *= f; }
+      if (d.gravity) p.vy -= d.gravity * 9.81 * dt;
+      let ox = 0, oy = 0;
+      if (d.noise) {
+        const [s, freq, scroll] = d.noise;
+        const nv = noise2(p.x * freq + p.seed, p.y * freq, simTime * (scroll || 0.5));
+        ox = nv[0] * s * 2.2 * dt; oy = nv[1] * s * 2.2 * dt;
+      }
+      p.x += p.vx * dt + ox; p.y += p.vy * dt + oy;
+      p.rot += p.spin * dt;
+      if (d.trail) {
+        p.trail.push([p.x, p.y, simTime]);
+        while (p.trail.length && simTime - p.trail[0][2] > d.trail[0]) p.trail.shift();
+      }
+      list[w++] = p;
+    }
+    list.length = w;
+  }
+}
+function drawParticles(order0) {
+  for (const name in particles) {
+    const d = PSDEFS[name], list = particles[name];
+    const add = d.blend !== "alpha";
+    for (const p of list) {
+      const t = p.age / p.life;
+      const g = evalGrad(d.grad, t);
+      const r = p.r * g[0], gg = p.g * g[1], b = p.b * g[2], a = p.a * g[3];
+      const size = p.size * evalCurve(d.size, t);
+      let u0 = 0, v0 = 0, u1 = 1, v1 = 1;
+      if (d.sheet) {
+        const nx = d.sheet[0], ny = d.sheet[1], fr = Math.min(nx * ny - 1, Math.floor(t * nx * ny));
+        const cx = fr % nx, cy = Math.floor(fr / nx);
+        u0 = cx / nx; u1 = (cx + 1) / nx; v0 = cy / ny; v1 = (cy + 1) / ny;
+      }
+      if (d.trail && p.trail.length > 1) {
+        const tr = p.trail, W = size * (d.trail[1] || 1);
+        for (let k = 1; k < tr.length; k++) {
+          const f = k / tr.length, ax = tr[k-1][0], ay = tr[k-1][1], bx = tr[k][0], by = tr[k][1];
+          const len = Math.hypot(bx - ax, by - ay); if (len < 1e-4) continue;
+          quad(d.order, true, "beam", (ax + bx) / 2, (ay + by) / 2, len, W * f, Math.atan2(by - ay, bx - ax) * 180 / Math.PI,
+               0, 0, 1, 1, r, gg, b, a * f);
+        }
+      }
+      if (d.stretch) {
+        const sp = Math.hypot(p.vx, p.vy);
+        const L = size * d.stretch[1] + sp * d.stretch[0];
+        quad(d.order, add, d.tex, p.x, p.y, Math.max(L, size), size, Math.atan2(p.vy, p.vx) * 180 / Math.PI, u0, v0, u1, v1, r, gg, b, a);
+      } else {
+        quad(d.order, add, d.tex, p.x, p.y, size, size, p.rot, u0, v0, u1, v1, r, gg, b, a);
+      }
+    }
+  }
+}
+function particleCount() { let n = 0; for (const k in particles) n += particles[k].length; return n; }
+
+// ---------------------------------------------------------------------------
+// Lua 端（fengari）：載入真正的 Mod 腳本，Unity 換成替身
+// ---------------------------------------------------------------------------
+const LUA_STUB = `
+CS = { UnityEngine = {
+  Vector3 = function(x, y, z) return { x = x, y = y, z = z } end,
+  Vector2 = function(x, y) return { x = x, y = y } end,
+  Color = function(r, g, b, a) return { r = r, g = g, b = b, a = a } end,
+  ParticleSystem = {}, Time = { unscaledDeltaTime = 0 },
+} }
+GameMain = { mods = {} }
+function GameMain:GetMod(n) self.mods[n] = self.mods[n] or {} return self.mods[n] end
+`;
+
+const LUA_SHIM = `
+local js = require "js"
+local VFX = GameMain:GetMod("JXLG_VFX")
+VFX.ready = true
+VFX.camZ = -300
+function VFX:Init() return true end
+local function fakeGo() return { SetActive = function() end, Equals = function() return false end } end
+function VFX:GetSprite() return { go = fakeGo(), tr = { localEulerAngles = { z = 0 } }, sr = {} } end
+function VFX:GetLine()
+  local lr = { pts = {} }
+  function lr:SetPosition(i, v) self.pts[i + 1] = v end
+  return { go = fakeGo(), lr = lr }
+end
+function VFX:Emit(name, o)
+  local c = o.col or { 1, 1, 1, 1 }
+  js.global:jxEmit(name, o.x, o.y, (o.vx or 0) * self.S, (o.vy or 0) * self.S, (o.size or 1) * self.S,
+    o.life or 1, c[1], c[2], c[3], c[4] or 1, o.rot or math.random() * 360, o.n or 1)
+end
+function VFX:ResetSystems() end
+
+local function toJSON(v)
+  local t = type(v)
+  if t == "number" then return string.format("%.6g", v) end
+  if t == "string" then return string.format("%q", v) end
+  if t == "boolean" then return tostring(v) end
+  if t == "table" then
+    if #v > 0 then
+      local o = {}
+      for i = 1, #v do o[#o + 1] = toJSON(v[i]) end
+      return "[" .. table.concat(o, ",") .. "]"
+    end
+    local o = {}
+    for k, x in pairs(v) do o[#o + 1] = string.format("%q", tostring(k)) .. ":" .. toJSON(x) end
+    return "{" .. table.concat(o, ",") .. "}"
+  end
+  return "null"
+end
+function PreviewDefs() return toJSON(VFX.PS_DEFS or {}) end
+
+function PreviewClear()
+  VFX.parts, VFX.lines, VFX.timers = {}, {}, {}
+end
+
+function PreviewPlay()
+  local fx = js.global.jxFx
+  math.randomseed(tonumber(js.global.jxSeed) or 7)
+  local c = function() return -6, -3, 0 end
+  local t = function() return 0, -1, 0 end
+  if fx == "phoenix" then VFX:Fx_Phoenix(c, t)
+  elseif fx == "sword" then VFX:Fx_Sword(c, t)
+  elseif fx == "lotus" then VFX:Fx_Lotus(t)
+  elseif fx == "thunder" then VFX:Fx_Thunder(t) end
+end
+
+function PreviewTick()
+  VFX:Tick(tonumber(js.global.jxDt))
+  return #VFX.parts
+end
+
+function PreviewDraw()
+  for _, p in ipairs(VFX.parts) do
+    local tr, sr = p.o.tr, p.o.sr
+    local pos, sc, c = tr.position, tr.localScale, sr.color
+    if pos and sc and c then
+      js.global:jxSprite(p.tex, pos.x, pos.y, sc.x, sc.y, tr.localEulerAngles.z, c.r, c.g, c.b, c.a, p.order or 100)
+    end
+  end
+  for _, l in ipairs(VFX.lines) do
+    local lr = l.o.lr
+    local s = {}
+    for i = 1, lr.positionCount or 0 do
+      local v = lr.pts[i]
+      if v then s[#s + 1] = string.format("%.4f,%.4f", v.x, v.y) end
+    end
+    local c = lr.startColor
+    if c then js.global:jxLine(table.concat(s, ";"), lr.widthMultiplier or 0.1, c.r, c.g, c.b, c.a, l.order or 150) end
+  end
+  return #VFX.parts
+end
+`;
+
+// sprite 尺寸：最長邊 = 1 世界單位（與遊戲裡 Sprite.Create 的 ppu 設定相同）
+function jxSprite(tex, x, y, sx, sy, rot, r, g, b, a, order) {
+  tex = String(tex);
+  const T = textures[tex]; if (!T) return;
+  const m = Math.max(T.w, T.h);
+  quad(order, true, tex, x, y, T.w / m * sx, T.h / m * sy, rot, 0, 0, 1, 1, r, g, b, a);
+}
+function jxLine(ptsStr, width, r, g, b, a, order) {
+  const pts = String(ptsStr).split(";").filter(Boolean).map(s => s.split(",").map(Number));
+  for (let k = 1; k < pts.length; k++) {
+    const [ax, ay] = pts[k-1], [bx, by] = pts[k];
+    const len = Math.hypot(bx - ax, by - ay); if (len < 1e-5) continue;
+    // 多加一點長度讓相鄰段落接起來，近似 LineRenderer 的接縫
+    quad(order, true, "beam", (ax + bx) / 2, (ay + by) / 2, len + width * 0.5, width,
+         Math.atan2(by - ay, bx - ax) * 180 / Math.PI, 0, 0, 1, 1, r, g, b, a);
+  }
+}
+Object.assign(window, { jxEmit, jxSprite, jxLine });
+
+let luaTick, luaPlay, luaClear, luaDraw;
+async function loadLua() {
+  errEl.textContent = "";
+  const run = (src, name) => fengari.load(src, "@" + name)();
+  run(LUA_STUB, "stub");
+  for (const f of SCRIPTS) {
+    const r = await fetch(ROOT + "Scripts/" + f + "?t=" + Date.now());
+    if (!r.ok) throw "讀不到 " + f;
+    run(await r.text(), f);
+  }
+  run(LUA_SHIM, "shim");
+  PSDEFS = JSON.parse(String(fengari.load("return PreviewDefs()")()));
+  luaTick = fengari.load("return PreviewTick()");
+  luaDraw = fengari.load("PreviewDraw()");
+  luaPlay = fengari.load("PreviewPlay()");
+  luaClear = fengari.load("PreviewClear()");
+}
+
+// ---------------------------------------------------------------------------
+// 主迴圈
+// ---------------------------------------------------------------------------
+let bgImg = null, current = null, loop = false, speed = 1, ppu = 49.09, elapsed = 0, frozen = false;
+const durations = { phoenix: 5.2, sword: 2.8, lotus: 3.4, thunder: 2.6 };
+
+function play(fx) {
+  current = fx; elapsed = 0; frozen = false;
+  for (const k in particles) particles[k].length = 0;
+  luaClear();
+  window.jxFx = fx; window.jxSeed = 7;
+  luaPlay();
+  document.querySelectorAll("[data-fx]").forEach(b => b.classList.toggle("on", b.dataset.fx === fx));
+}
+function step(dt) {
+  simTime += dt; elapsed += dt;
+  window.jxDt = dt;
+  stepParticles(dt);
+  return luaTick();
+}
+function render(spriteCount) {
+  gl.viewport(0, 0, cv.width, cv.height);
+  gl.clearColor(0.08, 0.07, 0.06, 1); gl.clear(gl.COLOR_BUFFER_BIT);
+  // 背景：截圖本身就是 49.09 px/單位，縮放時跟著縮
+  gl.uniform2f(uScale, 2 / cv.width, 2 / cv.height);
+  if (bgImg && document.getElementById("showbg").checked) {
+    const k = ppu / 49.09;
+    quad(-1000, false, "__bg", 0, 0, cv.width * k, cv.height * k, 0, 0, 0, 1, 1, 1, 1, 1, 1);
+    flush();
+  }
+  gl.uniform2f(uScale, 2 * ppu / cv.width, 2 * ppu / cv.height);
+  if (luaDraw) luaDraw();
+  drawParticles();
+  flush();
+  statusEl.textContent = current
+    ? `${({phoenix:"朱雀焚天",sword:"流光劍雨",lotus:"寒月冰蓮",thunder:"紫霄雷印"})[current]}　${elapsed.toFixed(2)} 秒　圖形 ${spriteCount}　粒子 ${particleCount()}`
+    : "點上方按鈕播放特效";
+}
+let last = performance.now(), lastSprites = 0;
+function frame(now) {
+  const real = Math.min(0.05, (now - last) / 1000); last = now;
+  try {
+    if (!frozen && current) {
+      lastSprites = step(real * speed);
+      if (elapsed > durations[current] && loop) play(current);
+    }
+    render(lastSprites);
+  } catch (e) { showErr(e); }
+  requestAnimationFrame(frame);
+}
+
+async function init() {
+  try {
+    for (const n of TEX) { const im = await loadImage(ROOT + "Tex/" + n + ".png"); textures[n] = { tex: glTex(im), w: im.width, h: im.height }; }
+    try { bgImg = await loadImage(ROOT + "Preview/bg.jpg"); textures.__bg = { tex: glTex(bgImg), w: bgImg.width, h: bgImg.height }; } catch (e) {}
+    await loadLua();
+  } catch (e) { showErr(e); statusEl.textContent = "載入失敗"; return; }
+
+  document.querySelectorAll("[data-fx]").forEach(b => b.onclick = () => play(b.dataset.fx));
+  document.getElementById("loop").onclick = e => { loop = !loop; e.target.classList.toggle("on", loop); };
+  document.getElementById("reload").onclick = async () => {
+    try { await loadLua(); if (current) play(current); statusEl.textContent = "已重新讀取程式"; } catch (e) { showErr(e); }
+  };
+  const sp = document.getElementById("speed");
+  sp.oninput = () => { speed = +sp.value; document.getElementById("speedv").textContent = speed.toFixed(2) + "×"; };
+  const zm = document.getElementById("zoom");
+  zm.oninput = () => { ppu = +zm.value; };
+
+  // ?fx=phoenix&t=1.5 ：以固定 1/60 秒步進模擬到指定時間後停格（給自動截圖用）
+  const fx = params.get("fx"), tStop = params.get("t");
+  if (fx) {
+    play(fx);
+    if (params.get("loop") === "1") { loop = true; document.getElementById("loop").classList.add("on"); }
+    if (tStop !== null) {
+      let n = 0;
+      while (elapsed < +tStop - 1e-6) { lastSprites = step(1 / 60); n++; }
+      frozen = true;
+    }
+  }
+  statusEl.textContent = "點上方按鈕播放特效";
+  requestAnimationFrame(frame);
+}
+init();
+</script>
+</body>
+</html>

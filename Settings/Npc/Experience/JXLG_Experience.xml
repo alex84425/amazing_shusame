@@ -1,0 +1,13 @@
+<Experiences><List>
+	<Experience Name="Experience_JXLG">
+		<DisplayName>九霄傳承</DisplayName>
+		<Desc>你幼時曾在山中拾得一枚流光玉簡，其中記載著《九霄流光訣》的入門法門。
+
+
+[size=10]解鎖功法：[color=#D06508]《九霄流光訣》[/color][/size]</Desc>
+		<Point>3</Point>
+		<Gongs>
+			<li>Gong_JXLG</li>
+		</Gongs>
+	</Experience>
+</List></Experiences>

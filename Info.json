@@ -1,0 +1,8 @@
+{
+ "Name": "JiuXiaoLiuGuang",
+ "DisplayName": "九霄流光訣（自製特效）",
+ "Desc": "新增功法《九霄流光訣》，煉氣期即可習得四道神通：流光劍雨、寒月冰蓮、紫霄雷印、朱雀焚天。\n所有視覺特效皆為自製（程式產生貼圖 + Lua 直接繪製），不使用遊戲內建特效。\n\n取得方式：開局經歷「九霄傳承」，或選中弟子按 LeftShift+0。\n特效預覽：LeftShift+6 / 7 / 8 / 9。",
+ "GameVersion": 0.95,
+ "Version": 2,
+ "Author": "Alex"
+}
