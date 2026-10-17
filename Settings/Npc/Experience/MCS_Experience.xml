@@ -1,0 +1,18 @@
+<Experiences><List>
+	<Experience Name="Experience_MCS_LiHuo">
+		<DisplayName>離火門弟子</DisplayName>
+		<Desc>你出身寧州離火門，自幼修習《烈焰訣》，對火系靈氣格外親近。\n\n\n[size=10]解鎖功法：[color=#D06508]《烈焰訣》[/color][/size]</Desc>
+		<Point>3</Point>
+		<Gongs>
+			<li>Gong_MCS_LieYan</li>
+		</Gongs>
+	</Experience>
+	<Experience Name="Experience_MCS_ZhuShan">
+		<DisplayName>竹山宗弟子</DisplayName>
+		<Desc>你自幼在寧州竹山宗長大，熟讀《春草訣》，與草木靈氣心意相通。\n\n\n[size=10]解鎖功法：[color=#D06508]《春草訣》[/color][/size]</Desc>
+		<Point>3</Point>
+		<Gongs>
+			<li>Gong_MCS_ChunCao</li>
+		</Gongs>
+	</Experience>
+</List></Experiences>

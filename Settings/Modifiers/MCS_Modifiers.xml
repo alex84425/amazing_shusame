@@ -1,0 +1,57 @@
+<ModifierDefs><List>
+	<Modifier Name="MCS_LiHuo_Root" Type="Normal">
+		<DisplayName>離火心法</DisplayName>
+		<Desc>修習離火門心法，戰鬥時依五行根基吸收五行靈氣。</Desc>
+		<MaxStack>1</MaxStack>
+		<Duration>-1</Duration>
+		<Display>1</Display>
+		<LuaClassName>MCS_Root</LuaClassName>
+	</Modifier>
+	<Modifier Name="MCS_ZhuShan_Root" Type="Normal">
+		<DisplayName>竹山心法</DisplayName>
+		<Desc>修習竹山宗心法，戰鬥時依五行根基吸收五行靈氣。</Desc>
+		<MaxStack>1</MaxStack>
+		<Duration>-1</Duration>
+		<Display>1</Display>
+		<LuaClassName>MCS_Root</LuaClassName>
+	</Modifier>
+	<Modifier Name="MCS_St_Burn" Type="Normal">
+		<DisplayName>灼燒</DisplayName>
+		<Desc>回合開始時受到等同層數的火系傷害，之後移除一層。</Desc>
+		<MaxStack>999</MaxStack>
+		<Duration>-1</Duration>
+		<Display>1</Display>
+	</Modifier>
+	<Modifier Name="MCS_St_Yan" Type="Normal">
+		<DisplayName>焰</DisplayName>
+		<Desc>每層使火系技能傷害提升。</Desc>
+		<MaxStack>999</MaxStack>
+		<Duration>-1</Duration>
+		<Display>1</Display>
+	</Modifier>
+	<Modifier Name="MCS_St_HuaYan" Type="Normal">
+		<DisplayName>化焰</DisplayName>
+		<Desc>受到傷害時反震火傷；回合結束獲得灼燒×1；施展非火系技能便會脫離。</Desc>
+		<MaxStack>999</MaxStack>
+		<Duration>-1</Duration>
+		<Display>1</Display>
+	</Modifier>
+	<Modifier Name="MCS_St_Poison" Type="Normal">
+		<DisplayName>中毒</DisplayName>
+		<Desc>回合結束時受到等同層數的木系傷害，層數不會自然減少。</Desc>
+		<MaxStack>999</MaxStack>
+		<Duration>-1</Duration>
+		<Display>1</Display>
+	</Modifier>
+	<Modifier Name="MCS_St_ChanRao" Type="Normal">
+		<DisplayName>纏繞</DisplayName>
+		<Desc>行動與法寶飛行變慢；回合結束時清除。</Desc>
+		<MaxStack>999</MaxStack>
+		<Duration>-1</Duration>
+		<Display>1</Display>
+		<Properties>
+			<li Name="MoveSpeed" AddP="-0.3"/>
+			<li Name="NpcFight_FabaoFlySpeedAddP" AddV="-0.2"/>
+		</Properties>
+	</Modifier>
+</List></ModifierDefs>

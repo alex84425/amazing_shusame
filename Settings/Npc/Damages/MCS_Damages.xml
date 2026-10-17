@@ -1,0 +1,13 @@
+<DamageDefs><List>
+	<Damage Name="Damage_MCS_Fire">
+		<DisplayName>離火灼傷</DisplayName>
+		<Lable>Huo</Lable>
+		<TreatConstant>0</TreatConstant>
+		<ValueMin>0.1</ValueMin>
+		<ValueMax>0.3</ValueMax>
+		<Pain>0.2</Pain>
+		<Trend>0.2</Trend>
+		<Previous></Previous>
+		<Next></Next>
+	</Damage>
+</List></DamageDefs>

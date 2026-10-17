@@ -1,0 +1,31 @@
+<ThingDefs><List>
+	<ThingDef Type="Building" Name="Building_MCS_MuZhuang" Parent="ProductionBase">
+		<TexPath>Spr/Building/mcs_muzhuang.png</TexPath>
+		<TexScale>1</TexScale>
+		<SelectAble>1</SelectAble>
+		<BlockLight>0</BlockLight>
+		<CastShadow>1</CastShadow>
+		<ThingName>離火試煉木樁</ThingName>
+		<Desc>離火門弟子練功用的木樁，經陣法加持，無論如何都打不壞。\n讓修習覓長生傳承的弟子攻擊它，傷害統計會定期顯示在訊息欄。</Desc>
+		<Beauty>0</Beauty>
+		<UseHitPoints>1</UseHitPoints>
+		<MaxHitPoints>99999999</MaxHitPoints>
+		<Flammability>
+			<Flammability>0</Flammability>
+		</Flammability>
+		<Collider>
+			<Data>
+			[3],
+			</Data>
+		</Collider>
+		<Building>
+			<NoFengshui>1</NoFengshui>
+			<TerrainAffordanceNeeded>Ground</TerrainAffordanceNeeded>
+			<CanMakeRoom>0</CanMakeRoom>
+			<BeMade>
+				<WorkToMake>1</WorkToMake>
+				<Quality>0</Quality>
+			</BeMade>
+		</Building>
+	</ThingDef>
+</List></ThingDefs>

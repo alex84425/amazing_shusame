@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>離火引擎測試</title>
+<style>
+  body { background:#15130f; color:#eee3d0; font-family:"Microsoft JhengHei",Consolas,monospace; margin:16px; }
+  h1 { font-size:18px; color:#e0a050; }
+  pre { white-space:pre-wrap; font-size:13px; line-height:1.45; }
+  .pass { color:#8fd18f; } .fail { color:#ff8a7a; }
+</style>
+</head>
+<body>
+<h1>離火引擎離線測試</h1>
+<pre id="out">執行中…</pre>
+<script src="https://cdn.jsdelivr.net/npm/fengari-web@0.1.4/dist/fengari-web.js"></script>
+<script>
+"use strict";
+// 用假的 Host 跑真正的 MCS_Data.lua + MCS_Core.lua，模擬整場戰鬥並檢查不變量
+const STUB = `
+GameMain = { mods = {} }
+function GameMain:GetMod(n) self.mods[n] = self.mods[n] or {} return self.mods[n] end
+`;
+const HARNESS = `
+local MCS = GameMain:GetMod("MCS_LiHuo")
+local T = { npcs = {}, log = {}, fails = {}, dealt = {}, maxBurn = 0, casts = {}, combos = 0, sames = 0 }
+_G.T = T
+local function fail(s) T.fails[#T.fails + 1] = s end
+
+-- 假角色：hp 當作靈氣，realm 1~3，weights 為五行根基
+local function npc(id, name, realm, hp, weights, learned, enemyId)
+  local n = { ID = id, name = name, realm = realm, hp = hp, maxhp = hp, w = weights, learned = learned or {}, enemy = enemyId }
+  T.npcs[id] = n
+  return n
+end
+
+local Host = {}
+MCS.Host = Host
+function Host.id(n) return n.ID end
+function Host.find(id) return T.npcs[id] end
+function Host.alive(n) return n ~= nil and n.hp > 0 end
+function Host.name(n) return n.name end
+function Host.fighting(n)
+  local e = n.enemy and T.npcs[n.enemy]
+  if e and e.hp > 0 and n.hp > 0 then return true, e end
+  return false
+end
+function Host.attacker(n) local _, e = Host.fighting(n) return e end
+function Host.canFight(n) return true end
+function Host.realm(n) return n.realm end
+function Host.weight(n, e) return n.w[e] or 0.1 end
+function Host.learned(n, eso) return n.learned[eso] == true end
+function Host.ling(n) return n.hp end
+function Host.lingRatio(n) return n.hp / n.maxhp end
+function Host.damage(t, amt, from, desc, elem)
+  if amt < 0 then fail("負傷害 " .. tostring(desc)) end
+  t.hp = t.hp - amt
+  local k = (from and from.name or "?") .. ":" .. tostring(desc)
+  T.dealt[k] = (T.dealt[k] or 0) + amt
+end
+function Host.heal(n, amt) n.hp = math.min(n.maxhp, n.hp + amt) end
+function Host.showStatus(n, key, v)
+  if v < 0 then fail("狀態為負 " .. key) end
+  if key == "Burn" and v > T.maxBurn then T.maxBurn = v end
+end
+function Host.showQi() end
+function Host.fx() end
+MCS.onLog = function(s)
+  T.log[#T.log + 1] = string.format("[%5.1f] %s", MCS.clock, s)
+  local sk = s:match("【(.-)】")
+  if sk and s:find("施展") then T.casts[sk] = (T.casts[sk] or 0) + 1 end
+  if s:find("（連擊）") then T.combos = T.combos + 1 end
+  if s:find("（同）") then T.sames = T.sames + 1 end
+end
+
+-- 每一步檢查：靈氣不為負、回合結束後不超過上限
+local function check(s, r, where)
+  for _, e in ipairs(MCS.ELEMS) do
+    if s.qi[e] < 0 then fail(where .. " 靈氣為負 " .. e) end
+  end
+end
+
+-- 對決：兩位修士互為目標，打到一方靈氣歸零或時間到
+function RunDuel(realm, seconds, seed)
+  math.randomseed(seed)
+  MCS.st, MCS.timers, MCS.clock, MCS.acc = {}, {}, 0, 0
+  T.npcs, T.log, T.fails, T.dealt, T.maxBurn, T.casts, T.combos, T.sames = {}, {}, {}, {}, 0, {}, 0, 0
+  local function learn(school)
+    local l = {}
+    l[MCS:EsoName(MCS.SCHOOLS[school].root)] = true
+    for lv, ids in pairs(MCS.TREES[school]) do
+      local ok = (lv == "Qi") or (lv == "Dan1" and realm >= 2) or (lv == "Dan2" and realm >= 3)
+      if ok then for _, id in ipairs(ids) do l[MCS:EsoName(id)] = true end end
+    end
+    return l
+  end
+  local hp = ({ 800, 2700, 10000 })[realm]
+  local fire = npc(1, "離火弟子", realm, hp, { Jin = 0.6, Mu = 0.9, Shui = 0.4, Huo = 1.6, Tu = 0.5 }, learn("LiHuo"), 2)
+  local wood = npc(2, "竹山弟子", realm, hp, { Jin = 0.5, Mu = 1.6, Shui = 0.9, Huo = 0.4, Tu = 0.6 }, learn("ZhuShan"), 1)
+  MCS:Register(fire)
+  MCS:Register(wood)
+  local dt, t = 0.05, 0
+  while t < seconds and fire.hp > 0 and wood.hp > 0 do
+    MCS:Update(dt)
+    t = t + dt
+  end
+  local winner = (fire.hp > 0 and wood.hp <= 0) and "離火弟子" or (wood.hp > 0 and fire.hp <= 0) and "竹山弟子" or "平手（時間到）"
+  local by = { ["離火弟子"] = {}, ["竹山弟子"] = {} }
+  for k, v in pairs(T.dealt) do
+    local who, what = k:match("^(.-):(.*)$")
+    if by[who] then by[who][#by[who] + 1] = string.format("%s %.0f", what, v) end
+  end
+  for _, l in pairs(by) do table.sort(l) end
+  local cs = {}
+  for k, v in pairs(T.casts) do cs[#cs + 1] = k .. "×" .. v end
+  table.sort(cs)
+  local lines = {
+    string.format("== 對決 境界 %d（雙方靈氣 %d）種子 %d", realm, hp, seed),
+    string.format("勝者：%s，用時 %.1f 秒；剩餘靈氣 離火 %.0f／竹山 %.0f", winner, t, math.max(0, fire.hp), math.max(0, wood.hp)),
+    "離火傷害：" .. table.concat(by["離火弟子"], "、"),
+    "竹山傷害：" .. table.concat(by["竹山弟子"], "、"),
+    "出手：" .. table.concat(cs, "、"),
+    (#T.fails == 0) and "PASS" or ("FAIL：" .. table.concat(T.fails, "；")),
+  }
+  return table.concat(lines, "\\n")
+end
+
+function RunScenario(name, realm, learnAll, seconds, seed, weights)
+  math.randomseed(seed)
+  MCS.st, MCS.timers, MCS.clock, MCS.acc = {}, {}, 0, 0
+  T.npcs, T.log, T.fails, T.dealt, T.maxBurn, T.casts, T.combos, T.sames = {}, {}, {}, {}, 0, {}, 0, 0
+  local learned = {}
+  learned[MCS:EsoName("LieYan")] = true
+  for lv, ids in pairs(MCS.TREES.LiHuo) do
+    local ok = (lv == "Qi") or (lv == "Dan1" and realm >= 2) or (lv == "Dan2" and realm >= 3)
+    if learnAll or ok then for _, id in ipairs(ids) do learned[MCS:EsoName(id)] = true end end
+  end
+  local hero = npc(1, "離火弟子", realm, 4000 * realm, weights, learned, 2)
+  local foe = npc(2, "木樁妖", realm, 1e9, { Jin = 1, Mu = 1, Shui = 1, Huo = 1, Tu = 1 }, {}, 1)
+  MCS:Register(hero)
+  local dt, cap, maxQi = 0.05, MCS.CAP[realm], 0
+  local hits, atkT, hpLostFoe = 0, 0, 0
+  for _ = 1, math.floor(seconds / dt) do
+    MCS:Update(dt)
+    -- 木樁妖每 2 秒攻擊一次（直接扣靈氣，不經過引擎），用來驗證化焰反震與炙火印
+    atkT = atkT + dt
+    if atkT >= 2 then atkT = 0; hero.hp = hero.hp - 20 * realm; hits = hits + 1 end
+    local s = MCS.st[1]
+    if s then
+      check(s, realm, "t=" .. MCS.clock)
+      local tot = MCS:QiTotal(s)
+      if tot > maxQi then maxQi = tot end
+    end
+  end
+  local s = MCS.st[1]
+  if s and MCS:QiTotal(s) > cap then fail("結束時靈氣超過上限") end
+  local total = 0
+  for _, v in pairs(T.dealt) do total = total + v end
+  local lines = {}
+  lines[#lines + 1] = string.format("== %s（境界 %d，%d 秒）", name, realm, seconds)
+  local refl = (MCS.st[1] and MCS.st[1].reflects) or 0
+  if refl > hits then fail("化焰反震次數 " .. refl .. " 多於實際受擊 " .. hits) end
+  lines[#lines + 1] = string.format("總傷害 %.0f（DPS %.0f），最高灼燒 %d 層，連擊 %d 次，【同】%d 次，靈氣峰值 %d/%d，受擊 %d／反震 %d",
+    total, total / seconds, T.maxBurn, T.combos, T.sames, maxQi, cap, hits, refl)
+  local cs = {}
+  for k, v in pairs(T.casts) do cs[#cs + 1] = k .. "×" .. v end
+  table.sort(cs)
+  lines[#lines + 1] = "出手：" .. table.concat(cs, "、")
+  local ds = {}
+  for k, v in pairs(T.dealt) do ds[#ds + 1] = string.format("%s %.0f", k, v) end
+  table.sort(ds)
+  lines[#lines + 1] = "傷害來源：" .. table.concat(ds, "、")
+  lines[#lines + 1] = (#T.fails == 0) and "PASS" or ("FAIL：" .. table.concat(T.fails, "；"))
+  lines[#lines + 1] = "前 18 行戰鬥紀錄："
+  for i = 1, math.min(18, #T.log) do lines[#lines + 1] = "  " .. T.log[i] end
+  return table.concat(lines, "\\n")
+end
+`;
+
+async function main() {
+  const out = document.getElementById("out");
+  try {
+    const run = (src, name) => fengari.load(src, "@" + name)();
+    run(STUB, "stub");
+    for (const f of ["MCS_Data.lua", "MCS_Data_ZhuShan.lua", "MCS_Core.lua"]) {
+      const r = await fetch("../../Scripts/" + f + "?t=" + Date.now());
+      run(await r.text(), f);
+    }
+    run(HARNESS, "harness");
+    const fireRoot = "{ Jin = 0.6, Mu = 0.9, Shui = 0.4, Huo = 1.6, Tu = 0.5 }";
+    const even = "{ Jin = 1, Mu = 1, Shui = 1, Huo = 1, Tu = 1 }";
+    const cases = [
+      `RunDuel(1, 180, 11)`, `RunDuel(1, 180, 12)`, `RunDuel(1, 180, 13)`,
+      `RunDuel(2, 180, 21)`, `RunDuel(2, 180, 22)`, `RunDuel(2, 180, 23)`,
+      `RunDuel(3, 180, 31)`, `RunDuel(3, 180, 32)`, `RunDuel(3, 180, 33)`,
+      `RunScenario("煉氣・只學煉氣節點・火靈根", 1, false, 60, 1, ${fireRoot})`,
+      `RunScenario("築基・學到築基・火靈根", 2, false, 60, 2, ${fireRoot})`,
+      `RunScenario("金丹・全學・火靈根", 3, true, 90, 3, ${fireRoot})`,
+      `RunScenario("金丹・全學・五行平均", 3, true, 90, 4, ${even})`,
+    ];
+    const res = cases.map(c => String(fengari.load("return " + c)()));
+    out.innerHTML = res.map(t => t.replace(/PASS/, '<span class="pass">PASS</span>').replace(/FAIL：/, '<span class="fail">FAIL：</span>')).join("\n\n");
+  } catch (e) {
+    out.innerHTML = '<span class="fail">' + String(e && e.stack || e) + "</span>";
+  }
+}
+main();
+</script>
+</body>
+</html>

@@ -1,0 +1,631 @@
+<Esotericas><List>
+	<Esoterica Name="MCS_Eso_LieYan">
+		<DisplayName>烈焰訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>離火門入門心法。戰鬥開始時獲得火系靈氣。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·烈焰訣（離火門·人階上）[/color]\n離火門入門心法。戰鬥開始時獲得火系靈氣。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n開戰火系靈氣 1／2／3[/size]</EffectDesc>
+		<Modifier>MCS_LiHuo_Root</Modifier>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_Huodan">
+		<DisplayName>火彈</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>基礎火系技能，造成傷害。【連擊】上一招為木系時傷害提升。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·火彈（離火門·人階中）[/color]\n靈氣消耗：火×3\n基礎火系技能，造成傷害。【連擊】上一招為木系時傷害提升。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n傷害 4／6／10[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_RanHuo">
+		<DisplayName>燃火術</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>造成傷害。【連擊】上一招為木系時獲得【焰】。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·燃火術（離火門·人階中）[/color]\n靈氣消耗：火×2 同×1\n造成傷害。【連擊】上一招為木系時獲得【焰】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n傷害 3／3／3\n焰 1／2／3[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_ZhiHuoYin">
+		<DisplayName>炙火印</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>【後繼無力】本回合下一次受到傷害時，使對手獲得【灼燒】。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·炙火印（離火門·人階下）[/color]\n靈氣消耗：火×1 木×1\n【後繼無力】本回合下一次受到傷害時，使對手獲得【灼燒】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n敵方灼燒 2／3／4\n[color=#A0A0A0]後繼無力[/color][/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_JuHuoYin">
+		<DisplayName>聚火印</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>本場戰鬥提升吸收到火系靈氣的機率。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·聚火印（離火門·人階中）[/color]\n靈氣消耗：木×1 火×1\n本場戰鬥提升吸收到火系靈氣的機率。[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_HuoQiang">
+		<DisplayName>火牆術</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>獲得【護罩】。【連擊】上一招為木系時效果翻倍。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·火牆術（離火門·人階中）[/color]\n靈氣消耗：火×2 同×1\n獲得【護罩】。【連擊】上一招為木系時效果翻倍。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n護罩 3／4／7[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_HuaYanShu">
+		<DisplayName>化焰術</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>獲得【化焰】，使用任何非火系技能都會脫離此狀態。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·化焰術（離火門·人階上）[/color]\n靈氣消耗：火×1 同×1\n獲得【化焰】，使用任何非火系技能都會脫離此狀態。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n化焰 1／2／3[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_YinHuo">
+		<DisplayName>引火訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>使用火系傷害技能時，若上一招為木系，傷害提升。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·引火訣（離火門·人階中）[/color]\n使用火系傷害技能時，若上一招為木系，傷害提升。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n連擊傷害+ 1／4／16[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_NongYan">
+		<DisplayName>弄焰訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>每回合第一次造成的火系技能傷害提升。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·弄焰訣（離火門·人階中）[/color]\n每回合第一次造成的火系技能傷害提升。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n首次傷害+ 2／6／24[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_TuYan">
+		<DisplayName>吐焰訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>造成傷害。【連擊】上一招為木系時敵方獲得【灼燒】。</Desc>
+		<GLevel>Dan1</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·吐焰訣（離火門·人階上）[/color]\n靈氣消耗：火×3 同×1\n造成傷害。【連擊】上一招為木系時敵方獲得【灼燒】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n傷害 7／8／9\n敵方灼燒 1／2／3[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_FenQi">
+		<DisplayName>焚氣術</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>造成傷害，若敵方被【灼燒】，消散其一點靈氣。</Desc>
+		<GLevel>Dan1</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·焚氣術（離火門·人階上）[/color]\n靈氣消耗：火×1 同×1\n造成傷害，若敵方被【灼燒】，消散其一點靈氣。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n傷害 1／2／3[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_DanYang">
+		<DisplayName>丹陽印</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>【後繼無力】獲得【焰】。</Desc>
+		<GLevel>Dan1</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·丹陽印（離火門·人階上）[/color]\n靈氣消耗：火×1 木×2\n【後繼無力】獲得【焰】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n焰 2／3／4\n[color=#A0A0A0]後繼無力[/color][/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_TunYan">
+		<DisplayName>吞焰訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>移除自身【灼燒】×3，恢復生命，並使下一次火系技能傷害提升。</Desc>
+		<GLevel>Dan1</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·吞焰訣（離火門·人階上）[/color]\n靈氣消耗：火×1 同×1\n移除自身【灼燒】×3，恢復生命，並使下一次火系技能傷害提升。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n恢復 1／2／3\n下次火傷+ 2／3／4[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_SanMei">
+		<DisplayName>三昧真火</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>造成傷害並使敵方獲得【灼燒】；【同】額外提升傷害。</Desc>
+		<GLevel>Dan1</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·三昧真火（離火門·地階下）[/color]\n靈氣消耗：火×2 同×2\n造成傷害並使敵方獲得【灼燒】；【同】額外提升傷害。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n傷害 5／6／7\n敵方灼燒 1／2／3\n【同】傷害+ 2／3／4[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_HuoShe">
+		<DisplayName>火蛇術</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>造成傷害，若目標被【灼燒】則獲得【纏繞】；【同】額外提升傷害。</Desc>
+		<GLevel>Dan1</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·火蛇術（離火門·地階下）[/color]\n靈氣消耗：火×3 同×2\n造成傷害，若目標被【灼燒】則獲得【纏繞】；【同】額外提升傷害。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n傷害 9／11／15\n【同】傷害+ 3／4／5\n纏繞 1／2／3[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_HuaYanJue">
+		<DisplayName>化焰訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>回合結束時，若處於【化焰】，額外獲得【化焰】。</Desc>
+		<GLevel>Dan1</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·化焰訣（離火門·人階中）[/color]\n回合結束時，若處於【化焰】，額外獲得【化焰】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n化焰 1／2／4[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_DieYan">
+		<DisplayName>疊焰訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>使用火系技能時，若上一招為木系，獲得【焰】。</Desc>
+		<GLevel>Dan1</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·疊焰訣（離火門·地階下）[/color]\n使用火系技能時，若上一招為木系，獲得【焰】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n焰 3／5／7[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_RongDun">
+		<DisplayName>熔盾訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>回合結束時，若處於【化焰】，獲得【護罩】。</Desc>
+		<GLevel>Dan1</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·熔盾訣（離火門·地階下）[/color]\n回合結束時，若處於【化焰】，獲得【護罩】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n護罩 5／20／80[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_BaoRan">
+		<DisplayName>爆燃</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>造成傷害，額外觸發一次【焰】；【連擊】上一招為木系時再觸發一次。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·爆燃（離火門·地階中）[/color]\n靈氣消耗：火×3 同×1\n造成傷害，額外觸發一次【焰】；【連擊】上一招為木系時再觸發一次。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n傷害 12／18／28\n[color=#A0A0A0]部分數值為推估[/color][/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_FenLing">
+		<DisplayName>焚靈訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>隨機散去敵方 2 點靈氣；若敵方有【灼燒】，再散去 2 點。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·焚靈訣（離火門·地階中）[/color]\n靈氣消耗：火×2 同×1\n隨機散去敵方 2 點靈氣；若敵方有【灼燒】，再散去 2 點。\n[color=#A0A0A0]部分數值為推估[/color][/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_ChiYanZhen">
+		<DisplayName>赤炎靈陣·驅</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>【後繼無力】敵方獲得【灼燒】。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·赤炎靈陣·驅（離火門·地階中）[/color]\n靈氣消耗：火×1 同×2\n【後繼無力】敵方獲得【灼燒】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n敵方灼燒 2／3／4\n[color=#A0A0A0]後繼無力[/color][/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_FenXin">
+		<DisplayName>焚心訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>回合開始時，敵方獲得【灼燒】。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·焚心訣（離火門·地階中）[/color]\n回合開始時，敵方獲得【灼燒】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n敵方灼燒 2／7／22[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_RanYan">
+		<DisplayName>燃焰訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>單次火系傷害足夠高時，敵方獲得【灼燒】。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·燃焰訣（離火門·地階上）[/color]\n單次火系傷害足夠高時，敵方獲得【灼燒】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n敵方灼燒 2／4／9[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_ZhenYang">
+		<DisplayName>真陽功</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>戰鬥開始時，火靈根權重提升。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·真陽功（離火門·地階下）[/color]\n戰鬥開始時，火靈根權重提升。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n火靈根權重+ 0.25／0.5／1.0[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_LinHuo">
+		<DisplayName>麟火</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>【異火】敵方獲得大量【灼燒】，自身也獲得【灼燒】。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·麟火（離火門·天階上）[/color]\n靈氣消耗：火×4 同×2\n【異火】敵方獲得大量【灼燒】，自身也獲得【灼燒】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n敵方灼燒 7／11／15\n自身灼燒 3／5／7[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_JiuTian">
+		<DisplayName>九天劫火</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>【異火】造成巨額傷害，自身獲得【灼燒】。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·九天劫火（離火門·天階上）[/color]\n靈氣消耗：火×9\n【異火】造成巨額傷害，自身獲得【灼燒】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n傷害 85／116／184\n自身灼燒 10／12／16[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_FanHuo">
+		<DisplayName>返火移景術</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>自身每有一層【灼燒】，敵方便獲得一層【灼燒】。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·返火移景術（離火門·天階下）[/color]\n靈氣消耗：火×2 同×2\n自身每有一層【灼燒】，敵方便獲得一層【灼燒】。[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_DaTunYan">
+		<DisplayName>大吞焰術</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>消耗自身所有【焰】，每層恢復生命。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·大吞焰術（離火門·天階中）[/color]\n靈氣消耗：火×1 同×1\n消耗自身所有【焰】，每層恢復生命。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n每層焰恢復 2／3／4[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_FenTian">
+		<DisplayName>焚天功</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>自身每有一層【灼燒】，火系技能傷害提升。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·焚天功（離火門·天階中）[/color]\n自身每有一層【灼燒】，火系技能傷害提升。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n每層灼燒火傷+ 1／2／3[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_XuanYang">
+		<DisplayName>玄陽哺焰訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>脫離【化焰】時，對手獲得等同化焰層數倍數的【灼燒】。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Huo</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·玄陽哺焰訣（離火門·天階中）[/color]\n脫離【化焰】時，對手獲得等同化焰層數倍數的【灼燒】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n灼燒倍數 1／2／3[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_ChunCao">
+		<DisplayName>春草訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>竹山宗入門心法。戰鬥勝利後恢復生命。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·春草訣（竹山宗·人階中）[/color]\n竹山宗入門心法。戰鬥勝利後恢復生命。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n戰後恢復 8／30／120[/size]</EffectDesc>
+		<Modifier>MCS_ZhuShan_Root</Modifier>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_MuCi">
+		<DisplayName>木刺</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>基礎木系技能，造成傷害。【連擊】上一招為水系時傷害提升。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·木刺（竹山宗·人階中）[/color]\n靈氣消耗：木×2\n基礎木系技能，造成傷害。【連擊】上一招為水系時傷害提升。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n傷害 2／3／6[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_FuDu">
+		<DisplayName>腐毒咒</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>造成傷害，敵方獲得【中毒】。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·腐毒咒（竹山宗·人階中）[/color]\n靈氣消耗：木×1 同×1\n造成傷害，敵方獲得【中毒】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n傷害 1／2／3\n敵方中毒 1／1／1[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_JiSheng">
+		<DisplayName>寄生引血術</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>造成傷害，若目標被【纏繞】，此擊【吸血】。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·寄生引血術（竹山宗·人階中）[/color]\n靈氣消耗：木×1 同×1\n造成傷害，若目標被【纏繞】，此擊【吸血】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n傷害 2／3／4[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_HuaWu">
+		<DisplayName>花舞術</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>造成傷害。【連擊】上一招為水系時，敵方獲得 2 個隨機負面狀態。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·花舞術（竹山宗·人階中）[/color]\n靈氣消耗：木×2 同×1\n造成傷害。【連擊】上一招為水系時，敵方獲得 2 個隨機負面狀態。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n傷害 2／3／6[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_HuiChunYin">
+		<DisplayName>回春印</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>本場戰鬥提升吸收到木系靈氣的機率。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·回春印（竹山宗·人階中）[/color]\n靈氣消耗：水×1 木×1\n本場戰鬥提升吸收到木系靈氣的機率。[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_QuTeng">
+		<DisplayName>驅藤術</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>【後繼無力】本回合下一次受到傷害時，對手獲得【纏繞】。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·驅藤術（竹山宗·人階下）[/color]\n靈氣消耗：木×1 水×1\n【後繼無力】本回合下一次受到傷害時，對手獲得【纏繞】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n敵方纏繞 2／3／4\n[color=#A0A0A0]後繼無力[/color][/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_ZhenYu">
+		<DisplayName>鴆羽訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>戰鬥開始時，敵方獲得【中毒】。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·鴆羽訣（竹山宗·人階中）[/color]\n戰鬥開始時，敵方獲得【中毒】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n開戰敵方中毒 2／5／12[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_ShangQing">
+		<DisplayName>上青訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>使用木系傷害技能時，若上一招為水系，傷害提升。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·上青訣（竹山宗·人階中）[/color]\n使用木系傷害技能時，若上一招為水系，傷害提升。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n連擊傷害+ 1／4／16[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_ShengMu">
+		<DisplayName>生木訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>每回合第一次造成的木系技能傷害提升。</Desc>
+		<GLevel>Qi</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·生木訣（竹山宗·人階中）[/color]\n每回合第一次造成的木系技能傷害提升。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n首次傷害+ 2／6／24[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_ShuLao">
+		<DisplayName>樹牢術</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>造成傷害。【連擊】上一招為水系時，敵方獲得【纏繞】。</Desc>
+		<GLevel>Dan1</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·樹牢術（竹山宗·人階上）[/color]\n靈氣消耗：木×3 同×1\n造成傷害。【連擊】上一招為水系時，敵方獲得【纏繞】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n傷害 9／10／14\n敵方纏繞 1／2／3[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_YinDu">
+		<DisplayName>引毒咒</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>觸發一次敵方的【中毒】；同一回合每多用一次，額外消耗一點木系靈氣。</Desc>
+		<GLevel>Dan1</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·引毒咒（竹山宗·人階上）[/color]\n靈氣消耗：木×1 同×1\n觸發一次敵方的【中毒】；同一回合每多用一次，額外消耗一點木系靈氣。[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_ChunSi">
+		<DisplayName>春絲印</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>【後繼無力】下一次木系技能傷害提升。</Desc>
+		<GLevel>Dan1</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·春絲印（竹山宗·人階上）[/color]\n靈氣消耗：木×2 水×1\n【後繼無力】下一次木系技能傷害提升。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n下次木傷+ 5／7／11\n[color=#A0A0A0]後繼無力[/color][/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_ZhuShanJian">
+		<DisplayName>竹山劍法</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>【吸血】造成傷害；【連擊】上一招為水系時傷害提升。</Desc>
+		<GLevel>Dan1</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·竹山劍法（竹山宗·地階下）[/color]\n靈氣消耗：木×2 同×2\n【吸血】造成傷害；【連擊】上一招為水系時傷害提升。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n傷害 2／4／6[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_QingTeng">
+		<DisplayName>青藤訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>戰鬥開始時，敵方獲得【纏繞】。</Desc>
+		<GLevel>Dan1</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·青藤訣（竹山宗·人階中）[/color]\n戰鬥開始時，敵方獲得【纏繞】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n開戰敵方纏繞 2／4／12[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_WanMu">
+		<DisplayName>萬木訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>戰鬥開始時，木靈根權重提升。</Desc>
+		<GLevel>Dan1</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·萬木訣（竹山宗·地階下）[/color]\n戰鬥開始時，木靈根權重提升。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n木靈根權重+ 0.25／0.5／1.0[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_TaiYin">
+		<DisplayName>太陰玄毒功</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>對【中毒】的敵人，木系技能傷害提升。</Desc>
+		<GLevel>Dan1</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·太陰玄毒功（竹山宗·地階下）[/color]\n對【中毒】的敵人，木系技能傷害提升。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n對中毒傷害+ 2／5／10[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_HuiChunJue">
+		<DisplayName>回春訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>每消耗 5 點木系靈氣，恢復生命。</Desc>
+		<GLevel>Dan1</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·回春訣（竹山宗·地階中）[/color]\n每消耗 5 點木系靈氣，恢復生命。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n每5木恢復 5／15／30[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_ChanMu">
+		<DisplayName>纏木</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>敵方獲得【纏繞】。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·纏木（竹山宗·地階上）[/color]\n靈氣消耗：木×2 同×2\n敵方獲得【纏繞】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n敵方纏繞 3／5／7[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_QingShe">
+		<DisplayName>青蛇勁</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>敵方獲得大量【中毒】。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·青蛇勁（竹山宗·地階上）[/color]\n靈氣消耗：木×4\n敵方獲得大量【中毒】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n敵方中毒 3／5／7[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_LuanTeng">
+		<DisplayName>亂藤術</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>【吸血】造成傷害；敵方每有一層【纏繞】，傷害提升 1 點。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·亂藤術（竹山宗·地階上）[/color]\n靈氣消耗：木×3 同×2\n【吸血】造成傷害；敵方每有一層【纏繞】，傷害提升 1 點。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n傷害 5／7／10[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_ZhangDu">
+		<DisplayName>障毒訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>造成傷害，對【中毒】的目標傷害翻倍；【同】額外提升傷害。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·障毒訣（竹山宗·地階中）[/color]\n靈氣消耗：木×2 同×3\n造成傷害，對【中毒】的目標傷害翻倍；【同】額外提升傷害。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n傷害 6／8／12\n【同】傷害+ 3／4／6[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_WuDuZhen">
+		<DisplayName>五毒攝魂陣·驅</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>【後繼無力】敵方獲得【中毒】。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·五毒攝魂陣·驅（竹山宗·地階中）[/color]\n靈氣消耗：木×1 同×1\n【後繼無力】敵方獲得【中毒】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n敵方中毒 2／3／4\n[color=#A0A0A0]後繼無力[/color][/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_JiXueTeng">
+		<DisplayName>汲血藤</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>【吸血】造成傷害；【同】額外提升傷害。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]神通·汲血藤（竹山宗·地階中）[/color]\n靈氣消耗：木×3 同×3\n【吸血】造成傷害；【同】額外提升傷害。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n傷害 9／12／18\n【同】傷害+ 4／6／8[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_WuDuShiXin">
+		<DisplayName>五毒蝕心訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>回合結束時，敵方獲得【中毒】。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·五毒蝕心訣（竹山宗·地階中）[/color]\n回合結束時，敵方獲得【中毒】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n敵方中毒 2／7／23[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_QingSheYao">
+		<DisplayName>青蛇要訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>每次使用【青蛇勁】，敵方額外獲得【中毒】。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·青蛇要訣（竹山宗·地階上）[/color]\n每次使用【青蛇勁】，敵方額外獲得【中毒】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n額外中毒 2／4／8[/size]</EffectDesc>
+	</Esoterica>
+	<Esoterica Name="MCS_Eso_WanXiang">
+		<DisplayName>萬象纏身訣</DisplayName>
+		<Hide>1</Hide>
+		<Icon>res/Sprs/ui/icon_zhandoufashu</Icon>
+		<StarLevel>0</StarLevel>
+		<Difficulty>1</Difficulty>
+		<Desc>單次木系傷害足夠高時，敵方獲得【纏繞】。</Desc>
+		<GLevel>Dan2</GLevel>
+		<Element>Mu</Element>
+		<EffectDesc>[size=10][color=#D06508]功法·萬象纏身訣（竹山宗·地階上）[/color]\n單次木系傷害足夠高時，敵方獲得【纏繞】。\n[color=#A0A0A0]煉氣／築基／金丹：[/color]\n敵方纏繞 1／3／6[/size]</EffectDesc>
+	</Esoterica>
+</List></Esotericas>
