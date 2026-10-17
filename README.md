@@ -10,6 +10,10 @@
 | 寒月冰蓮 | 雙層冰蓮在弟子腳下綻放旋轉，寒霧繚繞，花瓣四散時令其心境清明 | ![](Preview/寒月冰蓮.gif) |
 | 紫霄雷印 | 雷印法陣成形、雷氣內聚，三道天雷劈落，電花四濺 | ![](Preview/紫霄雷印.gif) |
 
+## 姊妹作：覓長生傳承
+
+[`michangsheng` 分支](https://github.com/alex84425/amazing_shusame/tree/michangsheng)：把《覓長生》寧州門派（離火門、竹山宗）的回合制戰鬥機制搬進修仙模擬器，至金丹期。它的視覺效果借用本 Mod 的特效引擎。
+
 ## 安裝
 
 1. 把整個資料夾放到 `遊戲目錄/Mods/JiuXiaoLiuGuang/`
